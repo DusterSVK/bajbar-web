@@ -108,6 +108,10 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     background-color: var(--cream);
+    /* Zamedzí horizontálnemu „ťahaniu" stránky na mobile (najmä iOS Safari
+       rubber-band cez fixnú .aurora vrstvu). `clip` (nie `hidden`) nezlomí
+       sticky hlavičku ani vertikálny scroll. */
+    overflow-x: clip;
   }
   body {
     background-color: transparent;
@@ -117,6 +121,7 @@
     line-height: 1.6;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
