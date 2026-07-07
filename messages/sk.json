@@ -1,0 +1,95 @@
+{
+  "Nav": {
+    "services": "Služby",
+    "about": "O nás",
+    "references": "Referencie",
+    "pricing": "Cenník",
+    "faq": "Časté otázky",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "openMenu": "Otvoriť menu",
+    "closeMenu": "Zavrieť menu"
+  },
+  "Common": {
+    "call": "Zavolať",
+    "getQuote": "Nezáväzná cenová ponuka",
+    "getQuoteShort": "Cenová ponuka",
+    "readMore": "Zistiť viac",
+    "allServices": "Všetky služby",
+    "backHome": "Späť na domov",
+    "home": "Domov",
+    "skipToContent": "Preskočiť na obsah",
+    "phone": "Telefón",
+    "email": "E-mail",
+    "hours": "Otváracie hodiny",
+    "address": "Sídlo",
+    "areaServed": "Oblasť pôsobenia"
+  },
+  "Cta": {
+    "heading": "Potrebujete čistenie alebo prácu vo výške?",
+    "subheading": "Ozvite sa nám a pripravíme vám nezáväznú cenovú ponuku na mieru, a to zvyčajne do 24 hodín.",
+    "button": "Získať cenovú ponuku"
+  },
+  "Footer": {
+    "servicesHeading": "Služby",
+    "companyHeading": "Spoločnosť",
+    "contactHeading": "Kontakt",
+    "tagline": "Profesionálne výškové čistenie a práca vo výške v Bratislave a okolí.",
+    "rights": "Všetky práva vyhradené.",
+    "ico": "IČO",
+    "privacy": "Ochrana osobných údajov"
+  },
+  "Cookie": {
+    "text": "Používame cookies na anonymné meranie návštevnosti. Analytické cookies sa spustia len s vaším súhlasom.",
+    "accept": "Súhlasím",
+    "reject": "Odmietnuť",
+    "moreInfo": "Viac informácií"
+  },
+  "Form": {
+    "name": "Meno a priezvisko",
+    "phone": "Telefón",
+    "email": "E-mail (nepovinné)",
+    "service": "Služba",
+    "servicePlaceholder": "Vyberte službu",
+    "serviceOther": "Iné / neviem",
+    "city": "Mesto / lokalita",
+    "message": "Správa (popíšte objekt, výšku, rozsah)",
+    "gdpr": "Súhlasím so spracovaním osobných údajov za účelom vybavenia dopytu.",
+    "submit": "Odoslať dopyt",
+    "submitting": "Odosielam…",
+    "successTitle": "Ďakujeme za dopyt!",
+    "successText": "Ozveme sa vám čo najskôr, zvyčajne do 24 hodín.",
+    "errorRequired": "Vyplňte prosím meno a telefón.",
+    "errorGdpr": "Bez súhlasu so spracovaním údajov nemôžeme dopyt spracovať.",
+    "errorGeneric": "Dopyt sa nepodarilo odoslať. Skúste to znova alebo nám zavolajte."
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Rady, postupy a odpovede o výškovom čistení a práci vo výške.",
+    "readingTime": "min čítania",
+    "published": "Publikované",
+    "updated": "aktualizované",
+    "relatedServices": "Súvisiace služby",
+    "seeAlso": "Pozri aj",
+    "sources": "Zdroje a ďalšie čítanie",
+    "backToBlog": "Späť na blog",
+    "empty": "Zatiaľ tu nie sú žiadne články."
+  },
+  "Lang": {
+    "label": "Jazyk",
+    "sk": "Slovensky",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Farba webu",
+    "pick": "Vyberte farbu webu",
+    "steel": "Steel",
+    "cyan": "Cyan Ice",
+    "emerald": "Emerald"
+  },
+  "NotFound": {
+    "title": "Stránka sa nenašla",
+    "text": "Ľutujeme, požadovaná stránka neexistuje alebo bola presunutá.",
+    "back": "Späť na domov"
+  }
+}

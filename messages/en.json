@@ -1,0 +1,95 @@
+{
+  "Nav": {
+    "services": "Services",
+    "about": "About",
+    "references": "References",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Common": {
+    "call": "Call us",
+    "getQuote": "Get a free quote",
+    "getQuoteShort": "Free quote",
+    "readMore": "Learn more",
+    "allServices": "All services",
+    "backHome": "Back to home",
+    "home": "Home",
+    "skipToContent": "Skip to content",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Opening hours",
+    "address": "Registered office",
+    "areaServed": "Service area"
+  },
+  "Cta": {
+    "heading": "Need cleaning or work at height?",
+    "subheading": "Get in touch and we'll prepare a tailored, no-obligation quote, usually within 24 hours.",
+    "button": "Get a quote"
+  },
+  "Footer": {
+    "servicesHeading": "Services",
+    "companyHeading": "Company",
+    "contactHeading": "Contact",
+    "tagline": "Professional high-rise cleaning and work at height in Bratislava and the surrounding region.",
+    "rights": "All rights reserved.",
+    "ico": "Company ID",
+    "privacy": "Privacy policy"
+  },
+  "Cookie": {
+    "text": "We use cookies to measure traffic anonymously. Analytics cookies run only with your consent.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "moreInfo": "More info"
+  },
+  "Form": {
+    "name": "Full name",
+    "phone": "Phone",
+    "email": "Email (optional)",
+    "service": "Service",
+    "servicePlaceholder": "Choose a service",
+    "serviceOther": "Other / not sure",
+    "city": "City / location",
+    "message": "Message (describe the site, height, scope)",
+    "gdpr": "I agree to the processing of my personal data for the purpose of handling this enquiry.",
+    "submit": "Send enquiry",
+    "submitting": "Sending…",
+    "successTitle": "Thank you for your enquiry!",
+    "successText": "We'll get back to you as soon as possible, usually within 24 hours.",
+    "errorRequired": "Please fill in your name and phone number.",
+    "errorGdpr": "We can't process your enquiry without your consent to data processing.",
+    "errorGeneric": "The enquiry could not be sent. Please try again or call us."
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Tips, methods and answers on high-rise cleaning and work at height.",
+    "readingTime": "min read",
+    "published": "Published",
+    "updated": "updated",
+    "relatedServices": "Related services",
+    "seeAlso": "See also",
+    "sources": "Sources & further reading",
+    "backToBlog": "Back to blog",
+    "empty": "There are no articles here yet."
+  },
+  "Lang": {
+    "label": "Language",
+    "sk": "Slovensky",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Site colour",
+    "pick": "Choose the site colour",
+    "steel": "Steel",
+    "cyan": "Cyan Ice",
+    "emerald": "Emerald"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "Sorry, the requested page doesn't exist or has been moved.",
+    "back": "Back to home"
+  }
+}

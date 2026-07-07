@@ -1,0 +1,30 @@
+# VPS deploy s Traefik (rovnaký vzor ako tepovanievbratislave.sk).
+# Pred nasadením: uprav Host(`bajbarservices.sk`) na reálnu doménu a doplň env.
+services:
+  bajbar-next:
+    build: .
+    container_name: bajbar-next
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - LEAD_TO_EMAIL=${LEAD_TO_EMAIL}
+      - LEAD_FROM_EMAIL=${LEAD_FROM_EMAIL}
+      - NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID}
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bajbar.rule=Host(`bajbarservices.sk`) || Host(`www.bajbarservices.sk`)"
+      - "traefik.http.routers.bajbar.entrypoints=websecure"
+      - "traefik.http.routers.bajbar.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.bajbar.loadbalancer.server.port=3000"
+      # www → non-www redirect
+      - "traefik.http.middlewares.bajbar-www.redirectregex.regex=^https://www\\.(.*)"
+      - "traefik.http.middlewares.bajbar-www.redirectregex.replacement=https://$${1}"
+      - "traefik.http.routers.bajbar.middlewares=bajbar-www"
+
+networks:
+  web:
+    external: true
+    name: root_default

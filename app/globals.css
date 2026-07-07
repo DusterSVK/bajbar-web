@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Dizajn systém "Bajbar" s PREPÍNATEĽNÝMI FARBAMI.
+   Farby sú sémantické CSS premenné, prepínané cez `data-theme` na <html>.
+   Tri témy: steel (svetlá, default), cyan (tmavá), emerald (tmavá).
+   Komponenty používajú sémantické tokeny (ink, body, surface, brand…), a tak prepnutie
+   témy prefarbí celý web naraz, vrátane svetlého aj tmavého režimu.
+---------------------------------------------------------------------------- */
+
+/* ===== TÉMA: STEEL (Graphite–Steel, svetlá, default) ===== */
+:root,
+:root[data-theme="steel"] {
+  --ink: #1f2937;
+  --body: #48555f;
+  --muted: #6b7783;
+  --cream: #f4f6f9;      /* pozadie stránky */
+  --surface: #ffffff;    /* karty */
+  --surface-2: #eef2f7;  /* jemné sekcie */
+  --hairline: rgba(15, 27, 36, 0.10);
+
+  --brand-50: #eef1f5;  --brand-100: #e2e7ee; --brand-200: #cbd3de;
+  --brand-300: #9aa7b8; --brand-400: #6f7f93; --brand-500: #556579;
+  --brand-600: #475569; --brand-700: #3a4656; --brand-800: #2c3542; --brand-900: #1f2733;
+
+  --accent-fg: #ffffff;  /* text na plnom akcente */
+  --band-bg: #334155; --band-fg: #ffffff; --band-sub: #cbd5e1;
+  --aurora-1: #93c5fd; --aurora-2: #c7d2fe; --aurora-3: #bae6fd; --aurora-op: 0.30;
+  color-scheme: light;
+}
+
+/* ===== TÉMA: CYAN ICE (tmavá) ===== */
+:root[data-theme="cyan"] {
+  --ink: #eaf1fb;
+  --body: #b7c5d6;
+  --muted: #8ea0b4;
+  --cream: #06080d;
+  --surface: #111a24;
+  --surface-2: #0c131c;
+  --hairline: rgba(255, 255, 255, 0.11);
+
+  --brand-50: rgba(75, 188, 255, 0.10); --brand-100: rgba(75, 188, 255, 0.16); --brand-200: rgba(75, 188, 255, 0.30);
+  --brand-300: #3fa0e0; --brand-400: #49b0f0; --brand-500: #4bbcff;
+  --brand-600: #4bbcff; --brand-700: #86d1ff; --brand-800: #2b8fe6; --brand-900: #173a5a;
+
+  --accent-fg: #04101c;
+  --band-bg: #0c1a28; --band-fg: #eaf1fb; --band-sub: #9fd4ff;
+  --aurora-1: #3fb6ff; --aurora-2: #2b6bff; --aurora-3: #1e90ff; --aurora-op: 0.22;
+  color-scheme: dark;
+}
+
+/* ===== TÉMA: EMERALD (tmavá) ===== */
+:root[data-theme="emerald"] {
+  --ink: #e6f5ee;
+  --body: #a9c7ba;
+  --muted: #88a99a;
+  --cream: #05100b;
+  --surface: #0e1a13;
+  --surface-2: #0a140e;
+  --hairline: rgba(255, 255, 255, 0.11);
+
+  --brand-50: rgba(53, 230, 162, 0.10); --brand-100: rgba(53, 230, 162, 0.16); --brand-200: rgba(53, 230, 162, 0.30);
+  --brand-300: #2bbd86; --brand-400: #2fd497; --brand-500: #35e6a2;
+  --brand-600: #35e6a2; --brand-700: #86ecc6; --brand-800: #12b47f; --brand-900: #0b3b2b;
+
+  --accent-fg: #032117;
+  --band-bg: #0b241a; --band-fg: #e6f5ee; --band-sub: #86e9c2;
+  --aurora-1: #35e6a2; --aurora-2: #10b981; --aurora-3: #34d399; --aurora-op: 0.20;
+  color-scheme: dark;
+}
+
+/* ===== Mapovanie tokenov na Tailwind utility (runtime cez var()) ===== */
+@theme {
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-cream: var(--cream);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-hairline: var(--hairline);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  --color-accent-fg: var(--accent-fg);
+  --color-band: var(--band-bg);
+  --color-band-fg: var(--band-fg);
+  --color-band-sub: var(--band-sub);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-schibsted), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--cream);
+  }
+  body {
+    background-color: transparent;
+    color: var(--body);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 2px; }
+  ::selection { background-color: var(--brand-600); color: var(--accent-fg); }
+  :focus-visible { outline: 2px solid var(--brand-600); outline-offset: 2px; border-radius: 3px; }
+}
+
+/* ------------------------------- MESH POZADIE ----------------------------- */
+.aurora {
+  position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+  background: var(--cream); contain: strict;
+}
+.aurora span {
+  position: absolute; display: block; border-radius: 50%;
+  filter: blur(90px); opacity: var(--aurora-op); will-change: transform; transform: translateZ(0);
+}
+.aurora .b1 { width: 52vw; height: 52vw; left: -12vw; top: -14vw; background: radial-gradient(circle at 50% 50%, var(--aurora-1), transparent 68%); animation: auroraA 38s ease-in-out infinite; }
+.aurora .b2 { width: 44vw; height: 44vw; right: -10vw; top: 4vh; background: radial-gradient(circle at 50% 50%, var(--aurora-2), transparent 68%); animation: auroraB 32s ease-in-out infinite; }
+.aurora .b3 { width: 48vw; height: 48vw; left: 24vw; bottom: -20vh; background: radial-gradient(circle at 50% 50%, var(--aurora-3), transparent 68%); animation: auroraC 44s ease-in-out infinite; }
+@keyframes auroraA { 0%,100%{transform:translate3d(0,0,0) scale(1)} 50%{transform:translate3d(6vw,5vh,0) scale(1.12)} }
+@keyframes auroraB { 0%,100%{transform:translate3d(0,0,0) scale(1)} 50%{transform:translate3d(-5vw,4vh,0) scale(1.1)} }
+@keyframes auroraC { 0%,100%{transform:translate3d(0,0,0) scale(1)} 50%{transform:translate3d(4vw,-5vh,0) scale(1.14)} }
+@media (max-width: 768px) { .aurora span { filter: blur(52px); animation: none; } .aurora .b3 { display: none; } }
+
+/* --------------------------- MOTION UTILITIES ----------------------------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); will-change: opacity, transform; }
+.reveal.is-in { opacity: 1; transform: none; }
+.marquee { overflow: hidden; }
+.marquee-track { display: inline-flex; gap: 2.5rem; white-space: nowrap; animation: marquee 36s linear infinite; will-change: transform; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .aurora span { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track { animation: none; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all;
+    transition-timing-function: var(--ease-out);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all;
+    background-color: var(--brand-600); color: var(--accent-fg);
+    box-shadow: 0 14px 30px -12px color-mix(in srgb, var(--brand-600) 55%, transparent);
+    transition-timing-function: var(--ease-out);
+  }
+  .btn-primary:hover { background-color: var(--brand-700); transform: translateY(-2px); box-shadow: 0 20px 40px -12px color-mix(in srgb, var(--brand-600) 60%, transparent); }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all;
+    background-color: var(--surface); color: var(--brand-700);
+    box-shadow: inset 0 0 0 1px var(--brand-200);
+    transition-timing-function: var(--ease-out);
+  }
+  .btn-secondary:hover { background-color: var(--brand-50); transform: translateY(-2px); }
+  .btn-secondary:active { transform: translateY(0) scale(0.98); }
+
+  .container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .prose-lead { @apply text-lg leading-relaxed; color: var(--body); }
+
+  .card {
+    @apply rounded-2xl p-6;
+    background-color: var(--surface);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 26px -14px rgba(0, 0, 0, 0.14);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+    background-color: var(--brand-100); color: var(--brand-700);
+  }
+
+  .glass {
+    background-color: color-mix(in srgb, var(--cream) 82%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+}
