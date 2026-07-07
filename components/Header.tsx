@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -27,8 +28,8 @@ export function Header() {
         <div className="container-page flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 font-display" onClick={() => setOpen(false)}>
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-sm font-black text-accent-fg">
-              BS
+            <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg bg-white ring-1 ring-black/5">
+              <Image src="/brand/mark.png" alt="" width={34} height={39} className="h-8 w-auto" priority />
             </span>
             <span className="text-lg font-extrabold tracking-tight text-ink">
               {site.name}

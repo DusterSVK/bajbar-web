@@ -1,18 +1,23 @@
 /**
- * Vygeneruje statické PNG ikony (favicon + PWA manifest) zo SVG cez sharp.
- * Spusti: node scripts/gen-icons.mjs
+ * Vygeneruje statické PNG ikony (favicon + PWA manifest) z emblému loga
+ * (public/brand/mark.png) cez sharp. Spusti: node scripts/gen-icons.mjs
  * Statické súbory sú spoľahlivé (žiadny dynamický /icon route, ktorý zlyhával na Verceli).
  */
 import sharp from "sharp";
 import fs from "fs";
 
-const svg = (s) => `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="104" fill="#1f4e8c"/>
-  <text x="256" y="256" font-family="Arial, Helvetica, sans-serif" font-size="330" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="central">B</text>
-</svg>`;
+const MARK = "public/brand/mark.png";
 
 async function gen(size, out) {
-  await sharp(Buffer.from(svg(size))).resize(size, size).png().toFile(out);
+  const pad = Math.round(size * 0.1);
+  const inner = size - pad * 2;
+  const emblem = await sharp(MARK)
+    .resize(inner, inner, { fit: "contain", background: "#ffffff" })
+    .toBuffer();
+  const bg = Buffer.from(
+    `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${Math.round(size * 0.2)}" fill="#ffffff"/></svg>`
+  );
+  await sharp(bg).composite([{ input: emblem, top: pad, left: pad }]).png().toFile(out);
   console.log(`✓ ${out} (${size}px, ${fs.statSync(out).size} B)`);
 }
 
