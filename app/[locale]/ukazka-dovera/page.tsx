@@ -3,19 +3,18 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/Motion";
-import { StockImage } from "@/components/StockImage";
 import { img, type StockKey } from "@/lib/images";
 import { services } from "@/lib/services";
-import { usp, districts, towns, contact, telHref } from "@/lib/config";
+import { usp, districts, towns, contact, site, telHref } from "@/lib/config";
 import { DemoNav } from "@/components/DemoNav";
 import type { Locale } from "@/i18n/routing";
 
 /**
- * UKÁŽKA — nový high-end, svetlý dizajn (editorial / architektúra) postavený
- * na reálnych fotkách (/public/img) a reálnych dátach (services, config).
- * Lokálne pretémovaná (porcelán + grafit + safety-orange) cez scoped CSS
- * premenné v `.bx`, takže NEZASAHUJE do globálnych tokenov ani ostatných stránok.
- * noindex — je to demo, nie ostrá stránka.
+ * UKÁŽKA A-01 — „Veža dôvery" (Trust Tower).
+ * Authority-first layout: celoplošný tmavý hero na reálnej fotke, pás dôvery,
+ * služby a silná E-E-A-T sekcia (overiteľné firemné údaje). Lokálne pretémované
+ * (studená oceľová + trust-blue) cez scoped premenné v `.tt` — NEZASAHUJE do
+ * globálnych tokenov ani iných stránok. noindex (demo).
  */
 
 const SERVICE_IMG: Record<string, StockKey> = {
@@ -27,29 +26,37 @@ const SERVICE_IMG: Record<string, StockKey> = {
 
 const copy = {
   sk: {
-    kicker: "Výškové čistenie · Bratislava",
+    kicker: "Výškové čistenie · Bratislava a okolie",
     h1a: "Výškové čistenie a práca ",
     h1accent: "vo výške",
     h1b: " v Bratislave",
     lead:
-      "Umývame fasády a okná vo výškach, čistíme budovy a robíme práce vo výške technikou lanového prístupu — bezpečne, poistene a bez lešenia.",
+      "Umývame fasády a okná vo výškach, čistíme budovy a robíme výškové práce technikou lanového prístupu — bezpečne, poistene a bez lešenia.",
     ctaPrimary: "Získať cenovú ponuku",
     ctaCall: "Zavolať",
-    quoteCard: "Nezáväzná cenová ponuka",
-    trust: ["Certifikovaný lanový prístup", "Poistená zodpovednosť", "Bez lešenia", "Cena do 24 h"],
-    creds: [
+    trustChips: ["Poistená zodpovednosť", "Certifikovaný lanový prístup", "Bez lešenia", "Cena do 24 h"],
+    barTitle: "Na čo sa môžete spoľahnúť",
+    bar: [
       { k: "Technika", v: "Lanový prístup + plošiny" },
       { k: "Poistenie", v: "Zodpovednosť za škodu" },
       { k: "Pôsobnosť", v: "Bratislava a okolie" },
       { k: "Cenová ponuka", v: "do 24 hodín" },
     ],
     svcKicker: "Služby",
-    svcTitle: "Čo pre vás spravíme",
+    svcTitle: "Naše služby",
     svcSub: "Špecializujeme sa na čistenie a práce tam, kde bežné firmy nedosiahnu.",
-    whyKicker: "Prečo Bajbar",
-    whyTitle: "Bezpečnosť, ktorú vidno na každom metri lana.",
-    whyLead:
-      "Pracujeme podľa bezpečnostných predpisov, s certifikovaným vybavením a poistením — aby bola vaša budova aj náš tím v bezpečí.",
+    trustKicker: "Prečo nám dôverovať",
+    trustTitle: "Firma, ktorú si viete overiť.",
+    trustLead:
+      "Nie sme anonymná inzercia. Za prácou vo výške stojí reálna firma so sídlom v Bratislave, poistením a konateľom, ktorého meno poznáte.",
+    creds: [
+      { k: "Prevádzkovateľ", v: site.legalName },
+      { k: "Konateľ", v: contact.owner },
+      { k: "IČO", v: contact.ico },
+      { k: "Sídlo", v: `${contact.address.street}, ${contact.address.postalCode} ${contact.address.city}` },
+      { k: "Poistenie", v: "Zodpovednosť za spôsobenú škodu" },
+      { k: "Pôsobíme od", v: String(site.foundingYear) },
+    ],
     procKicker: "Postup",
     procTitle: "Ako to prebieha",
     process: [
@@ -65,7 +72,7 @@ const copy = {
     ctaText: "Ozvite sa telefonicky alebo cez formulár. Cenovú ponuku pripravíme zvyčajne do 24 hodín.",
   },
   en: {
-    kicker: "High-rise cleaning · Bratislava",
+    kicker: "High-rise cleaning · Bratislava & region",
     h1a: "High-rise cleaning and work ",
     h1accent: "at height",
     h1b: " in Bratislava",
@@ -73,21 +80,29 @@ const copy = {
       "We wash facades and windows at height, clean buildings and carry out work at height using rope access — safely, insured and without scaffolding.",
     ctaPrimary: "Get a quote",
     ctaCall: "Call",
-    quoteCard: "No-obligation quote",
-    trust: ["Certified rope access", "Insured liability", "No scaffolding", "Quote within 24 h"],
-    creds: [
+    trustChips: ["Insured liability", "Certified rope access", "No scaffolding", "Quote within 24 h"],
+    barTitle: "What you can rely on",
+    bar: [
       { k: "Method", v: "Rope access + platforms" },
       { k: "Insurance", v: "Liability cover" },
       { k: "Coverage", v: "Bratislava & region" },
       { k: "Quote", v: "within 24 hours" },
     ],
     svcKicker: "Services",
-    svcTitle: "What we do",
+    svcTitle: "Our services",
     svcSub: "We specialise in cleaning and work where ordinary companies can't reach.",
-    whyKicker: "Why Bajbar",
-    whyTitle: "Safety you can see on every metre of rope.",
-    whyLead:
-      "We work to safety regulations, with certified equipment and insurance — so your building and our team stay safe.",
+    trustKicker: "Why trust us",
+    trustTitle: "A company you can verify.",
+    trustLead:
+      "We're not an anonymous ad. Behind the work at height is a real company registered in Bratislava, with insurance and a named owner.",
+    creds: [
+      { k: "Operator", v: site.legalName },
+      { k: "Owner", v: contact.owner },
+      { k: "Company ID", v: contact.ico },
+      { k: "Registered office", v: `${contact.address.street}, ${contact.address.postalCode} ${contact.address.city}` },
+      { k: "Insurance", v: "Liability for damage caused" },
+      { k: "Operating since", v: String(site.foundingYear) },
+    ],
     procKicker: "Process",
     procTitle: "How it works",
     process: [
@@ -105,37 +120,35 @@ const copy = {
 };
 
 const SCOPED_CSS = `
-.bx{
-  --bg:#f5f4f1; --ink:#17191c; --body:#4c525a; --muted:#8b9098;
-  --surface:#ffffff; --surface-2:#eeebe5; --hairline:rgba(23,25,28,.10);
-  --cream:#f5f4f1;
-  --accent:#ea580c; --accent-strong:#c2410c;
-  --band:#16181c; --band-fg:#f3f2ef; --band-sub:#a6acb4;
+.tt{
+  --bg:#eef2f7; --ink:#131b26; --body:#47566a; --muted:#7a8798;
+  --surface:#ffffff; --surface-2:#e2e9f1; --hairline:rgba(19,27,38,.11);
+  --accent:#0e63c4; --accent-strong:#0a4e9e;
+  --navy:#0c1826; --navy-fg:#eaf1fb; --navy-sub:#9fb3cc; --navy-line:rgba(255,255,255,.12);
   background:var(--bg); color:var(--body);
   font-family:var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
-.bx h1,.bx h2,.bx h3{
+.tt h1,.tt h2,.tt h3{
   color:var(--ink);
   font-family:var(--font-schibsted), var(--font-inter), sans-serif;
-  letter-spacing:-.03em; line-height:1.03; font-weight:800; text-wrap:balance;
+  letter-spacing:-.03em; line-height:1.04; font-weight:800; text-wrap:balance;
 }
-.bx p{ text-wrap:pretty; }
-.bx ::selection{ background:var(--accent); color:#fff; }
-.bx .kicker{
+.tt p{ text-wrap:pretty; }
+.tt ::selection{ background:var(--accent); color:#fff; }
+.tt .kicker{
   font-family:var(--font-inter); font-weight:600; font-size:.72rem;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--accent-strong);
+  letter-spacing:.18em; text-transform:uppercase; color:var(--accent);
 }
-.bx .rule{ display:block; height:2px; width:42px; background:var(--accent); border-radius:2px; }
-.bx .num{ font-family:var(--font-schibsted); font-variant-numeric:tabular-nums; color:var(--accent); font-weight:800; letter-spacing:-.02em; }
-.bx .svc{ transition:background-color .3s var(--ease-out,ease); }
-.bx .svc:hover{ background:rgba(23,25,28,.02); }
-.bx .svc:hover .svc-name{ color:var(--accent-strong); }
-.bx .svc:hover .svc-img{ transform:scale(1.05); }
-.bx .svc:hover .svc-arrow{ transform:translateX(4px); }
-.bx .btn-ink{ background:var(--ink); color:#fff; transition:transform .3s var(--ease-out,ease), background-color .3s ease; }
-.bx .btn-ink:hover{ background:#000; transform:translateY(-2px); }
-.bx .btn-ghost{ background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--hairline); transition:transform .3s var(--ease-out,ease), background-color .3s ease; }
-.bx .btn-ghost:hover{ background:#fff; transform:translateY(-2px); }
+.tt .num{ font-family:var(--font-schibsted); font-variant-numeric:tabular-nums; color:var(--accent); font-weight:800; letter-spacing:-.02em; }
+.tt .btn-accent{ background:var(--accent); color:#fff; transition:transform .3s var(--ease-out,ease), background-color .3s ease; box-shadow:0 16px 34px -14px rgba(14,99,196,.6); }
+.tt .btn-accent:hover{ background:var(--accent-strong); transform:translateY(-2px); }
+.tt .btn-glass{ background:rgba(255,255,255,.10); color:var(--navy-fg); box-shadow:inset 0 0 0 1px rgba(255,255,255,.22); transition:transform .3s var(--ease-out,ease), background-color .3s ease; }
+.tt .btn-glass:hover{ background:rgba(255,255,255,.18); transform:translateY(-2px); }
+.tt .svc{ transition:background-color .3s ease, transform .3s var(--ease-out,ease); }
+.tt .svc:hover{ transform:translateY(-3px); }
+.tt .svc:hover .svc-name{ color:var(--accent-strong); }
+.tt .svc:hover .svc-img{ transform:scale(1.06); }
+.tt .svc:hover .svc-arrow{ transform:translateX(4px); }
 `;
 
 export async function generateMetadata({
@@ -145,86 +158,82 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sk" ? "Ukážka · high-end dizajn" : "Showcase · high-end design",
+    title: locale === "sk" ? "Ukážka A-01 · Veža dôvery" : "Showcase A-01 · Trust Tower",
     robots: { index: false, follow: false },
   };
 }
 
-export default async function Ukazka({ params }: { params: Promise<{ locale: Locale }> }) {
+export default async function UkazkaDovera({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const l = locale as Locale;
   const x = copy[l];
 
   return (
-    <div className="bx">
+    <div className="tt">
       <style dangerouslySetInnerHTML={{ __html: SCOPED_CSS }} />
 
-      {/* ============================ HERO ============================ */}
-      <section className="mx-auto w-full max-w-6xl px-5 pt-10 pb-14 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <Reveal>
-            <div className="flex items-center gap-3">
-              <span className="rule" />
-              <span className="kicker">{x.kicker}</span>
-            </div>
-            <h1 className="mt-6 text-[2.6rem] sm:text-6xl lg:text-[4.1rem]">
+      {/* ===================== HERO (full-bleed, dark) ===================== */}
+      <section className="relative overflow-hidden" style={{ background: "var(--navy)" }}>
+        <Image
+          src={img("hero").src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ opacity: 0.42 }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(8,18,32,.78) 0%, rgba(8,18,32,.62) 42%, rgba(8,18,32,.90) 100%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-6xl px-5 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+          <Reveal className="max-w-3xl">
+            <span className="kicker" style={{ color: "#8fc0ff" }}>{x.kicker}</span>
+            <h1 className="mt-5 text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-[4.2rem]" style={{ color: "var(--navy-fg)" }}>
               {x.h1a}
-              <span style={{ color: "var(--accent)" }}>{x.h1accent}</span>
+              <span style={{ color: "#4ea1ff" }}>{x.h1accent}</span>
               {x.h1b}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "var(--body)" }}>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "var(--navy-sub)" }}>
               {x.lead}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/kontakt"
-                className="btn-ink inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
+                className="btn-accent inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
               >
-                {x.ctaPrimary} <span style={{ color: "var(--accent)" }} aria-hidden>→</span>
+                {x.ctaPrimary} <span aria-hidden>→</span>
               </Link>
               <a
                 href={telHref}
-                className="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
+                className="btn-glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
               >
                 {x.ctaCall}: {contact.phoneDisplay}
               </a>
             </div>
-            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2.5">
-              {x.trust.map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--ink)" }}>
-                  <span aria-hidden style={{ color: "var(--accent)" }}>✓</span>
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2.5">
+              {x.trustChips.map((t) => (
+                <li key={t} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--navy-fg)" }}>
+                  <span aria-hidden style={{ color: "#4ea1ff" }}>✓</span>
                   {t}
                 </li>
               ))}
             </ul>
           </Reveal>
-
-          <Reveal className="w-full lg:justify-self-end">
-            <div className="relative">
-              <StockImage
-                imageKey="hero"
-                locale={l}
-                priority
-                aspect="aspect-[4/5]"
-                rounded="rounded-[1.6rem]"
-                sizes="(max-width: 1024px) 100vw, 520px"
-                className="w-full"
-              />
-              <div className="absolute -left-4 bottom-14 hidden sm:block">
-                <div className="rounded-2xl bg-white/90 px-5 py-4 shadow-[0_20px_50px_-22px_rgba(0,0,0,.45)] ring-1 ring-black/5 backdrop-blur">
-                  <p className="num text-3xl leading-none">24 h</p>
-                  <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>{x.quoteCard}</p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
         </div>
+      </section>
 
-        {/* credentials strip */}
+      {/* ===================== TRUST BAR ===================== */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <Reveal>
-          <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl sm:grid-cols-4" style={{ background: "var(--hairline)" }}>
-            {x.creds.map((c) => (
+          <dl className="-mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl shadow-[0_24px_60px_-30px_rgba(12,24,38,.5)] sm:grid-cols-4" style={{ background: "var(--hairline)" }}>
+            {x.bar.map((c) => (
               <div key={c.k} className="px-5 py-5" style={{ background: "var(--surface)" }}>
                 <dt className="kicker" style={{ color: "var(--muted)" }}>{c.k}</dt>
                 <dd className="mt-2 text-base font-semibold" style={{ color: "var(--ink)", fontFamily: "var(--font-schibsted)" }}>
@@ -236,7 +245,7 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
         </Reveal>
       </section>
 
-      {/* ========================== SERVICES ========================= */}
+      {/* ===================== SERVICES ===================== */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
         <Reveal>
           <div className="flex items-end justify-between gap-6 border-b pb-6" style={{ borderColor: "var(--hairline)" }}>
@@ -250,37 +259,36 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
           </div>
         </Reveal>
 
-        <div>
-          {services.map((s, i) => {
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {services.map((s) => {
             const key = SERVICE_IMG[s.slug] ?? "buildings";
             return (
               <Reveal key={s.slug} as="article">
                 <Link
                   href={s.slug}
-                  className="svc grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b px-3 py-6 sm:grid-cols-[auto_1fr_auto_auto] sm:gap-8 sm:py-7"
-                  style={{ borderColor: "var(--hairline)" }}
+                  className="svc group flex h-full flex-col overflow-hidden rounded-2xl"
+                  style={{ background: "var(--surface)", boxShadow: "inset 0 0 0 1px var(--hairline), 0 1px 2px rgba(12,24,38,.05), 0 18px 40px -26px rgba(12,24,38,.35)" }}
                 >
-                  <span className="num text-xl sm:text-2xl">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3 className="svc-name text-xl font-bold transition-colors sm:text-[1.7rem]" style={{ color: "var(--ink)" }}>
-                      {s.name[l]}
-                    </h3>
-                    <p className="mt-1.5 max-w-xl text-sm leading-relaxed" style={{ color: "var(--body)" }}>
-                      {s.excerpt[l]}
-                    </p>
-                  </div>
-                  <div className="relative hidden h-16 w-24 shrink-0 overflow-hidden rounded-xl ring-1 ring-black/5 sm:block">
+                  <div className="relative h-44 overflow-hidden">
                     <Image
                       src={img(key).src}
                       alt=""
                       fill
-                      sizes="96px"
+                      sizes="(max-width: 640px) 100vw, 520px"
                       className="svc-img object-cover transition-transform duration-500"
                     />
                   </div>
-                  <span className="svc-arrow justify-self-end text-2xl transition-transform" aria-hidden style={{ color: "var(--accent)" }}>
-                    →
-                  </span>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="svc-name text-xl font-bold transition-colors" style={{ color: "var(--ink)" }}>
+                      {s.name[l]}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed" style={{ color: "var(--body)" }}>
+                      {s.excerpt[l]}
+                    </p>
+                    <span className="svc-arrow mt-4 inline-flex items-center gap-2 text-sm font-semibold transition-transform" style={{ color: "var(--accent)" }}>
+                      {l === "sk" ? "Zistiť viac" : "Learn more"} <span aria-hidden>→</span>
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             );
@@ -288,27 +296,27 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
         </div>
       </section>
 
-      {/* ======================= WHY (dark band) ===================== */}
-      <section style={{ background: "var(--band)" }}>
+      {/* ===================== TRUST / E-E-A-T (dark band) ===================== */}
+      <section style={{ background: "var(--navy)" }}>
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <Reveal>
-              <span className="kicker">{x.whyKicker}</span>
-              <h2 className="mt-4 max-w-lg text-3xl sm:text-4xl lg:text-[2.9rem]" style={{ color: "var(--band-fg)" }}>
-                {x.whyTitle}
+              <span className="kicker" style={{ color: "#8fc0ff" }}>{x.trustKicker}</span>
+              <h2 className="mt-4 max-w-md text-3xl sm:text-4xl lg:text-[2.9rem]" style={{ color: "var(--navy-fg)" }}>
+                {x.trustTitle}
               </h2>
-              <p className="mt-5 max-w-md leading-relaxed" style={{ color: "var(--band-sub)" }}>
-                {x.whyLead}
+              <p className="mt-5 max-w-md leading-relaxed" style={{ color: "var(--navy-sub)" }}>
+                {x.trustLead}
               </p>
               <div className="mt-9 space-y-6">
                 {usp.map((u, i) => (
-                  <div key={i} className="flex gap-4 border-t pt-5" style={{ borderColor: "rgba(255,255,255,.10)" }}>
-                    <span className="num text-lg">{String(i + 1).padStart(2, "0")}</span>
+                  <div key={i} className="flex gap-4 border-t pt-5" style={{ borderColor: "var(--navy-line)" }}>
+                    <span className="num text-lg" style={{ color: "#4ea1ff" }}>{String(i + 1).padStart(2, "0")}</span>
                     <div>
-                      <p className="font-bold" style={{ color: "var(--band-fg)", fontFamily: "var(--font-schibsted)" }}>
+                      <p className="font-bold" style={{ color: "var(--navy-fg)", fontFamily: "var(--font-schibsted)" }}>
                         {u.title[l]}
                       </p>
-                      <p className="mt-1 text-sm leading-relaxed" style={{ color: "var(--band-sub)" }}>
+                      <p className="mt-1 text-sm leading-relaxed" style={{ color: "var(--navy-sub)" }}>
                         {u.text[l]}
                       </p>
                     </div>
@@ -317,21 +325,23 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
               </div>
             </Reveal>
 
-            <Reveal className="w-full">
-              <StockImage
-                imageKey="references"
-                locale={l}
-                aspect="aspect-[4/5]"
-                rounded="rounded-[1.6rem]"
-                sizes="(max-width: 1024px) 100vw, 460px"
-                className="w-full"
-              />
+            <Reveal>
+              <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl sm:grid-cols-2" style={{ background: "var(--navy-line)" }}>
+                {x.creds.map((c) => (
+                  <div key={c.k} className="px-6 py-6" style={{ background: "rgba(255,255,255,.03)" }}>
+                    <dt className="kicker" style={{ color: "#8fc0ff" }}>{c.k}</dt>
+                    <dd className="mt-2 text-lg font-semibold" style={{ color: "var(--navy-fg)", fontFamily: "var(--font-schibsted)" }}>
+                      {c.v}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ========================== PROCESS ========================== */}
+      {/* ===================== PROCESS ===================== */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
         <Reveal>
           <span className="kicker">{x.procKicker}</span>
@@ -350,7 +360,7 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
         </div>
       </section>
 
-      {/* =========================== AREA ============================ */}
+      {/* ===================== AREA ===================== */}
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-6 lg:px-8 lg:pb-24">
         <Reveal>
           <div className="overflow-hidden rounded-[1.8rem] ring-1 ring-black/5" style={{ background: "var(--surface)" }}>
@@ -385,30 +395,27 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
         </Reveal>
       </section>
 
-      {/* ======================== CTA (closing) ====================== */}
+      {/* ===================== CTA ===================== */}
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[1.8rem] px-8 py-12 lg:px-14 lg:py-16" style={{ background: "var(--band)" }}>
+          <div className="relative overflow-hidden rounded-[1.8rem] px-8 py-12 lg:px-14 lg:py-16" style={{ background: "var(--navy)" }}>
             <div className="relative z-10 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
               <div>
-                <span className="rule" />
-                <h2 className="mt-5 max-w-lg text-3xl sm:text-4xl lg:text-[2.7rem]" style={{ color: "var(--band-fg)" }}>
+                <h2 className="max-w-lg text-3xl sm:text-4xl lg:text-[2.7rem]" style={{ color: "var(--navy-fg)" }}>
                   {x.ctaTitle}
                 </h2>
-                <p className="mt-4 max-w-md" style={{ color: "var(--band-sub)" }}>{x.ctaText}</p>
+                <p className="mt-4 max-w-md" style={{ color: "var(--navy-sub)" }}>{x.ctaText}</p>
               </div>
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row lg:flex-col">
                 <Link
                   href="/kontakt"
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
-                  style={{ background: "var(--accent)", color: "#fff" }}
+                  className="btn-accent inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
                 >
                   {x.ctaPrimary} <span aria-hidden>→</span>
                 </Link>
                 <a
                   href={telHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
-                  style={{ color: "var(--band-fg)", background: "rgba(255,255,255,.08)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,.18)" }}
+                  className="btn-glass inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
                 >
                   {contact.phoneDisplay}
                 </a>
@@ -417,13 +424,13 @@ export default async function Ukazka({ params }: { params: Promise<{ locale: Loc
             <div
               aria-hidden
               className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(234,88,12,.38), transparent 70%)" }}
+              style={{ background: "radial-gradient(circle, rgba(14,99,196,.45), transparent 70%)" }}
             />
           </div>
         </Reveal>
       </section>
 
-      <DemoNav current="editorial" locale={l} />
+      <DemoNav current="dovera" locale={l} />
     </div>
   );
 }

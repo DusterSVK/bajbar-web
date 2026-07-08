@@ -22,8 +22,11 @@ export const routing = defineRouting({
   localeDetection: false,
   pathnames: {
     "/": "/",
-    // Dočasná ukážka nového high-end dizajnu (noindex). Bez vplyvu na ostatné stránky.
+    // Dočasné ukážky nového dizajnu (noindex). Bez vplyvu na ostatné stránky.
+    "/ukazky": { sk: "/ukazky", en: "/demos" },
     "/ukazka": { sk: "/ukazka", en: "/showcase" },
+    "/ukazka-dovera": { sk: "/ukazka-dovera", en: "/showcase-trust" },
+    "/ukazka-mriezka": { sk: "/ukazka-mriezka", en: "/showcase-grid" },
     "/prace-vo-vyske": { sk: "/prace-vo-vyske", en: "/work-at-heights" },
     "/cistenie-fasad": { sk: "/cistenie-fasad", en: "/facade-cleaning" },
     "/umyvanie-okien-vo-vyskach": {
